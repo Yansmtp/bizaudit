@@ -69,10 +69,7 @@ export default function Home() {
 
     try {
       if (selectedPlan === 'free') {
-        // Handle free plan submission
         setStep('processing');
-        // Here you could show a simplified result directly
-        // Or call a different endpoint for a free audit
         return;
       }
 
@@ -95,14 +92,11 @@ export default function Home() {
 
       const { clientSecret } = data;
 
-      // Redirigir a página de agendamiento para planes de mentoría
       if (selectedPlan === 'professional') {
         setStep('processing');
-        // Aquí iría la lógica de redirección a calendly o similar
         return;
       }
 
-      // Para el plan básico, usar Stripe
       const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
       if (!stripe) throw new Error('Stripe no cargó correctamente');
 
@@ -179,11 +173,11 @@ export default function Home() {
   const faqs = [
     {
       question: 'How does the AI work?',
-      answer: 'Our AI analyzes your business\'s online presence across multiple platforms including your website, social media profiles, Google Business listing, and competitor data. It uses advanced machine learning to identify opportunities and generate actionable recommendations.',
-      },
+      answer: "Our AI analyzes your business's online presence across multiple platforms including your website, social media profiles, Google Business listing, and competitor data. It uses advanced machine learning to identify opportunities and generate actionable recommendations.",
+    },
     {
       question: 'How long does it take?',
-      answer: 'The free preview audit takes about 2 minutes. For paid audits, you'll receive your comprehensive PDF report within 5 minutes of payment. Consultation sessions are scheduled within 24-48 hours.',
+      answer: "The free preview audit takes about 2 minutes. For paid audits, you'll receive your comprehensive PDF report within 5 minutes of payment. Consultation sessions are scheduled within 24-48 hours.",
     },
     {
       question: 'Can I audit any business?',
@@ -435,7 +429,7 @@ export default function Home() {
               {
                 icon: Globe,
                 title: 'Website Analysis',
-                description: 'Evaluate your website's design, speed, mobile-friendliness, and conversion optimization.',
+                description: 'Evaluate your website\'s design, speed, mobile-friendliness, and conversion optimization.',
               },
               {
                 icon: Search,
@@ -1006,8 +1000,8 @@ export default function Home() {
             </h2>
             <p className="text-xl text-muted-foreground mb-6">
               {selectedPlan === 'professional' 
-                ? 'We'll send you a calendar invitation within 24 hours to schedule your 30-minute consultation with our team.'
-                : 'We're analyzing your business. You'll receive your report in your email in less than 5 minutes.'
+                ? 'We\'ll send you a calendar invitation within 24 hours to schedule your 30-minute consultation with our team.'
+                : 'We\'re analyzing your business. You\'ll receive your report in your email in less than 5 minutes.'
               }
             </p>
             <div className="bg-primary p-4 rounded-lg">
