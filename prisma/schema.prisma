@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Status {
+  PENDING
+  PAID
+  PROCESSING
+  COMPLETED
+  ERROR
+}
+
+model Order {
+  id             String   @id @default(cuid())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  
+  businessName   String
+  category       String
+  city           String
+  website        String?
+  instagram      String?
+  facebook       String?
+  googleMaps     String?
+  email          String
+  phone          String?
+  mainGoal       String
+  
+  status         Status   @default(PENDING)
+  paymentId      String?
+  amountPaid     Float?
+  plan           String
+  
+  auditRawData   Json?
+  pdfUrl         String?
+  
+  processedAt    DateTime?
+}
