@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { stripe } from '@/lib/stripe';
+import { getStripe } from '@/lib/stripe';
 
 export async function POST(req: NextRequest) {
   try {
@@ -54,6 +54,7 @@ export async function POST(req: NextRequest) {
     });
 
     // Crear Payment Intent en Stripe
+    const stripe = getStripe();
     const paymentIntent = await stripe.paymentIntents.create({
       amount,
       currency: 'usd',
