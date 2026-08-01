@@ -165,7 +165,7 @@ export default function Home() {
       <section className="relative pt-32 pb-24 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(45,224,255,0.12),_transparent_40%),radial-gradient(circle_at_bottom_right,_rgba(255,95,170,0.2),_transparent_35%)]"></div>
         <div className="relative overflow-hidden">
-          <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-primary/15 to-transparent blur-3xl"></div>
+          <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-white/10 to-transparent blur-3xl"></div>
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -173,7 +173,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 text-primary px-4 py-2 mb-6 font-semibold text-sm">
+              <div className="inline-flex items-center gap-2 rounded-full bg-card/90 text-primary px-4 py-2 mb-6 font-semibold text-sm">
                 {t.hero.pretitle}
               </div>
               <h1 className="text-5xl sm:text-6xl font-bold text-foreground mb-6 leading-tight">
@@ -198,7 +198,7 @@ export default function Home() {
               </div>
               <div className="grid grid-cols-3 gap-4 mt-14">
                 {t.hero.metrics.map((metric, index) => (
-                  <div key={index} className="rounded-3xl bg-card/90 border border-primary/10 p-5 text-center shadow-lg shadow-primary/15">
+                  <div key={index} className="rounded-3xl bg-card/90 border border-border/70 p-5 text-center shadow-lg shadow-black/10">
                     <div className="text-3xl font-bold text-primary">{metric.value}</div>
                     <div className="text-sm font-medium text-muted-foreground">{metric.label}</div>
                   </div>
@@ -218,7 +218,7 @@ export default function Home() {
                     <p className="text-sm uppercase tracking-[0.24em] text-primary/85 font-semibold mb-2">{t.audit.live}</p>
                     <h3 className="text-2xl font-bold text-card-foreground">{t.audit.title}</h3>
                   </div>
-                  <div className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-4 py-2 rounded-full text-sm font-semibold shadow-[0_10px_40px_-30px_rgba(59,130,246,0.35)]">
+                  <div className="inline-flex items-center gap-2 bg-card/90 text-secondary px-4 py-2 rounded-full text-sm font-semibold shadow-[0_10px_40px_-30px_rgba(0,0,0,0.25)]">
                     <span className="h-2.5 w-2.5 rounded-full bg-primary"></span>
                     {t.audit.quickTitle}
                   </div>
@@ -233,10 +233,10 @@ export default function Home() {
                   </div>
 
                   {[
-                    { name: t.audit.metrics[0].label, score: 85, color: 'bg-primary' },
-                    { name: t.audit.metrics[1].label, score: 78, color: 'bg-secondary' },
-                    { name: t.audit.metrics[2].label, score: 72, color: 'bg-accent' },
-                    { name: t.audit.metrics[3].label, score: 88, color: 'bg-primary/80' },
+                    { name: t.audit.metrics[0].label, score: 85, color: 'bg-card/80' },
+                    { name: t.audit.metrics[1].label, score: 78, color: 'bg-card/80' },
+                    { name: t.audit.metrics[2].label, score: 72, color: 'bg-card/80' },
+                    { name: t.audit.metrics[3].label, score: 88, color: 'bg-card/80' },
                   ].map((item, index) => (
                     <div key={index} className="space-y-2">
                       <div className="flex justify-between text-sm">
@@ -255,12 +255,12 @@ export default function Home() {
                   ))}
                 </div>
 
-                <div className="mt-6 p-4 bg-primary rounded-lg">
+                <div className="mt-6 p-4 bg-card/90 rounded-lg">
                   <div className="flex items-start gap-3">
-                    <Lightbulb className="text-primary-foreground mt-1" size={20} />
+                    <Lightbulb className="text-primary mt-1" size={20} />
                     <div>
-                      <div className="font-semibold text-primary-foreground text-sm">{t.audit.quickTitle}</div>
-                      <div className="text-xs text-primary-foreground/80 mt-1">{t.audit.quickText}</div>
+                      <div className="font-semibold text-primary text-sm">{t.audit.quickTitle}</div>
+                      <div className="text-xs text-primary/80 mt-1">{t.audit.quickText}</div>
                     </div>
                   </div>
                 </div>
@@ -272,7 +272,7 @@ export default function Home() {
       </section>
 
       {/* TRUST SECTION */}
-      <section className="py-16 bg-secondary">
+      <section className="py-16 bg-card/95">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -357,7 +357,7 @@ export default function Home() {
       </section>
 
       {/* FEATURES */}
-      <section id="features" className="py-20 bg-secondary">
+      <section id="features" className="py-20 bg-card/95">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -467,7 +467,7 @@ export default function Home() {
       </section>
 
       {/* PRICING */}
-      <section id="pricing" className="py-20 bg-secondary">
+      <section id="pricing" className="py-20 bg-card/95">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -494,12 +494,12 @@ export default function Home() {
                 whileHover={{ y: -5 }}
                 className={`relative rounded-2xl shadow-xl p-8 ${
                   plan.popular
-                    ? 'bg-gradient-to-br from-primary to-secondary text-primary-foreground scale-105'
+                    ? 'bg-card/90 border border-primary/20 text-primary scale-105'
                     : 'bg-card'
                 }`}
               >
                 {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-semibold shadow-lg shadow-primary/20">
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-card/80 text-primary px-4 py-1 rounded-full text-sm font-semibold shadow-lg shadow-primary/20">
                     {t.plans.popularBadge}
                   </div>
                 )}
@@ -526,7 +526,7 @@ export default function Home() {
                   onClick={() => selectPlan(key as 'free' | 'basic' | 'professional')}
                   className={`w-full py-4 rounded-3xl font-semibold transition-all ${
                     plan.popular
-                      ? 'bg-primary text-primary-foreground hover:bg-primary/95 shadow-xl'
+                      ? 'btn-primary shadow-xl'
                       : 'btn-primary'
                   }`}
                 >
@@ -585,7 +585,7 @@ export default function Home() {
       </section>
 
       {/* FAQ */}
-      <section className="py-20 bg-secondary">
+      <section className="py-20 bg-card/95">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -610,7 +610,7 @@ export default function Home() {
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === index ? null : index)}
-                  className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-secondary transition-colors"
+                  className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-card/90 transition-colors"
                 >
                   <span className="font-semibold text-card-foreground">
                     {faq.question}
@@ -629,7 +629,7 @@ export default function Home() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="py-20 bg-gradient-to-r from-primary to-accent">
+      <section className="py-20 bg-card/95">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -644,7 +644,7 @@ export default function Home() {
             </p>
             <button
               onClick={() => setStep('form')}
-              className="bg-primary text-primary-foreground px-8 py-4 rounded-lg font-semibold text-lg hover:bg-primary/95 transition-colors shadow-[0_18px_40px_-20px_rgba(45,224,255,0.55)] inline-flex items-center gap-2"
+              className="btn-primary px-8 py-4 rounded-lg font-semibold text-lg inline-flex items-center gap-2 shadow-xl"
             >
               {t.cta.button}
               <ArrowRight size={20} />
@@ -712,7 +712,7 @@ export default function Home() {
               </div>
               <button
                 onClick={() => setStep('landing')}
-                className="p-2 hover:bg-secondary rounded-lg transition-colors"
+                className="p-2 hover:bg-card/90 rounded-lg transition-colors"
               >
                 <X size={24} />
               </button>
@@ -905,8 +905,8 @@ export default function Home() {
                 : t.processing.successText
               }
             </p>
-            <div className="bg-primary p-4 rounded-lg">
-              <p className="text-sm text-primary-foreground">
+            <div className="bg-card/90 p-4 rounded-lg">
+              <p className="text-sm text-primary">
                 {t.processing.emailNote}
               </p>
             </div>
