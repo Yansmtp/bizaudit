@@ -71,8 +71,7 @@
     @apply bg-card/80 text-primary-foreground border border-primary/15 px-8 py-3 rounded-2xl font-semibold transition-all duration-200 shadow-[0_20px_60px_-45px_rgba(0,0,0,0.25)];
     backdrop-filter: blur(6px);
   }
-  }
-
+  
   .card {
     @apply bg-card/95 text-card-foreground rounded-[32px] shadow-[0_30px_80px_-45px_rgba(0,0,0,0.35)] p-8 transition-shadow duration-300 border border-border/70;
   }
