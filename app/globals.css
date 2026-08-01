@@ -12,9 +12,9 @@
     --card-foreground: 210 18% 96%;
     /* Instagram-like palette (web gradient endpoints) */
     --primary: 238 88% 58%; /* blue/purple (#405DE6 / #5851DB area) */
-    --primary-foreground: 218 18% 10%;
-    --secondary: 325 70% 54%; /* magenta/pink (#833AB4 area) */
-    --secondary-foreground: 210 18% 96%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 352 71% 47%; /* instagram-red tone */
+    --secondary-foreground: 0 0% 100%;
     --muted: 214 18% 20%;
     --muted-foreground: 210 18% 72%;
     --accent: 28 100% 58%; /* orange/yellow (#FCAF45 area) */
@@ -29,9 +29,9 @@
     --card: 218 18% 12%;
     --card-foreground: 210 18% 98%;
     --primary: 238 88% 60%;
-    --primary-foreground: 218 18% 10%;
-    --secondary: 325 70% 56%;
-    --secondary-foreground: 210 18% 98%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 352 71% 47%;
+    --secondary-foreground: 0 0% 100%;
     --muted: 214 18% 14%;
     --muted-foreground: 210 18% 74%;
     --accent: 28 100% 60%;
@@ -48,7 +48,7 @@
     --card-foreground: 220 10% 6%;
     --primary: 238 88% 36%; /* vivid Instagram blue/purple */
     --primary-foreground: 0 0% 100%;
-    --secondary: 325 70% 36%;
+    --secondary: 352 71% 36%;
     --secondary-foreground: 0 0% 100%;
     --muted: 210 8% 94%;
     --muted-foreground: 220 10% 28%;
@@ -88,7 +88,8 @@
     border-radius: 1rem;
     font-weight: 600;
     color: hsl(var(--primary-foreground));
-    background-image: linear-gradient(90deg, #405DE6 0%, #833AB4 50%, #FCAF45 100%);
+    /* use red tones instead of magenta to improve contrast */
+    background-image: linear-gradient(90deg, #405DE6 0%, #D92F2F 50%, #FCAF45 100%);
     box-shadow: 0 10px 30px -18px rgba(56,189,248,0.18), 0 6px 18px -12px rgba(0,0,0,0.12);
     transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
     outline: none;
@@ -121,7 +122,8 @@
   }
 
   .gradient-text {
-    background-image: linear-gradient(90deg, #405DE6 0%, #833AB4 50%, #FCAF45 100%);
+    /* Avoid pink: use red midpoint for better harmony with red-themed UI */
+    background-image: linear-gradient(90deg, #405DE6 0%, #D92F2F 50%, #FCAF45 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
