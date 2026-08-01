@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Menu, X, Moon, Sun } from 'lucide-react';
+import { Menu, X, Moon, Sun, Contrast } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useLanguage } from '@/components/LanguageProvider';
 
@@ -88,7 +88,7 @@ export default function Navbar() {
               aria-label="Toggle high contrast"
               title={highContrast ? 'High contrast: on' : 'High contrast: off'}
             >
-              HC
+              <Contrast size={18} style={{ color: 'hsl(var(--secondary))' }} />
             </button>
             <select
               value={lang}
@@ -118,7 +118,7 @@ export default function Navbar() {
               aria-label="Toggle high contrast"
               title={highContrast ? 'High contrast: on' : 'High contrast: off'}
             >
-              HC
+              <Contrast size={18} style={{ color: 'hsl(var(--secondary))' }} />
             </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
