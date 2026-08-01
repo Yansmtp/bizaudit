@@ -5,11 +5,21 @@ export const runtime = 'nodejs';
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { orderId: string } }
+  ctx: { params: Promise<Record<string, string | string[] | undefined>> }
 ) {
   try {
+    const params = await ctx.params;
+    const orderId = typeof params.orderId === 'string' ? params.orderId : undefined;
+
+    if (!orderId) {
+      return NextResponse.json(
+        { error: 'ID de orden inválido' },
+        { status: 400 }
+      );
+    }
+
     const order = await prisma.order.findUnique({
-      where: { id: params.orderId },
+      where: { id: orderId },
     });
 
     if (!order) {

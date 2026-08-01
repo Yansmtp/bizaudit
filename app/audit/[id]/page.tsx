@@ -8,31 +8,53 @@ interface AuditData {
   auditData: any;
 }
 
-export default function AuditPage({ params }: { params: { id: string } }) {
+export default function AuditPage({ params }: { params: Promise<{ id: string }> }) {
   const [audit, setAudit] = useState<AuditData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [orderId, setOrderId] = useState<string | null>(null);
 
   useEffect(() => {
+    let isMounted = true;
+
     const fetchAudit = async () => {
       try {
-        const response = await fetch(`/api/audit/${params.id}`);
+        const resolvedParams = await params;
+        const id = resolvedParams?.id;
+
+        if (!id) {
+          throw new Error('ID de orden inválido');
+        }
+
+        setOrderId(id);
+
+        const response = await fetch(`/api/audit/${id}`);
         const data = await response.json();
-        
+
         if (!response.ok) {
           throw new Error(data.error || 'Error al cargar la auditoría');
         }
-        
-        setAudit(data);
+
+        if (isMounted) {
+          setAudit(data);
+        }
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Error desconocido');
+        if (isMounted) {
+          setError(err instanceof Error ? err.message : 'Error desconocido');
+        }
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
 
     fetchAudit();
-  }, [params.id]);
+
+    return () => {
+      isMounted = false;
+    };
+  }, [params]);
 
   if (loading) {
     return (
