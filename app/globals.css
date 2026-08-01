@@ -40,6 +40,23 @@
     --ring: 190 95% 68%;
   }
 
+  .light {
+    --background: 0 0% 100%; /* white */
+    --foreground: 220 10% 6%; /* near-black for body text */
+    --card: 0 0% 100%;
+    --card-foreground: 220 10% 6%;
+    --primary: 238 88% 36%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 352 71% 47%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 210 8% 96%;
+    --muted-foreground: 220 10% 28%;
+    --accent: 28 100% 36%;
+    --accent-foreground: 0 0% 0%;
+    --border: 220 10% 88%;
+    --ring: 238 88% 36%;
+  }
+
   /* High contrast variant for accessibility */
   .high-contrast {
     --background: 0 0% 100%; /* white */
