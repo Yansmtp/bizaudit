@@ -122,6 +122,11 @@ return JSON.parse(content);
 }
 
 async function sendAuditEmail(to: string, businessName: string, pdfUrl: string) {
+  if (!resend) {
+    console.warn('Resend API key is not configured. Skipping email send.');
+    return;
+  }
+
   const html = `
     <!DOCTYPE html>
     <html>
