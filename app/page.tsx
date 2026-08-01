@@ -664,7 +664,7 @@ export default function Home() {
               </p>
             </div>
             <div>
-              <h4 className="font-semibold text-background mb-4">{t.footer.product}</h4>
+              <h4 className="font-semibold text-foreground mb-4">{t.footer.product}</h4>
               <ul className="space-y-2 text-sm">
                 <li><a href="#features" className="hover:text-white transition-colors">{t.footer.features}</a></li>
                 <li><a href="#pricing" className="hover:text-white transition-colors">{t.footer.pricing}</a></li>
@@ -672,7 +672,7 @@ export default function Home() {
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-background mb-4">{t.footer.company}</h4>
+              <h4 className="font-semibold text-foreground mb-4">{t.footer.company}</h4>
               <ul className="space-y-2 text-sm">
                 <li><a href="#" className="hover:text-white transition-colors">{t.footer.about}</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">{t.footer.contact}</a></li>
@@ -680,7 +680,7 @@ export default function Home() {
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-background mb-4">{t.footer.legal}</h4>
+              <h4 className="font-semibold text-foreground mb-4">{t.footer.legal}</h4>
               <ul className="space-y-2 text-sm">
                 <li><a href="#" className="hover:text-white transition-colors">{t.footer.privacy}</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">{t.footer.terms}</a></li>
