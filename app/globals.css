@@ -55,8 +55,9 @@
     font-weight: 600;
     color: hsl(var(--primary-foreground));
     background-image: linear-gradient(90deg, #405DE6 0%, #833AB4 50%, #FCAF45 100%);
-    box-shadow: 0 20px 60px -40px rgba(56,189,248,0.18);
+    box-shadow: 0 10px 30px -18px rgba(56,189,248,0.18), 0 6px 18px -12px rgba(0,0,0,0.12);
     transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
+    outline: none;
   }
 
   .btn-primary:active {
@@ -64,16 +65,25 @@
   }
 
   .btn-primary:hover {
-    opacity: 0.95;
+    opacity: 0.98;
+    transform: translateY(-2px);
+    box-shadow: 0 26px 70px -28px rgba(56,189,248,0.24), 0 10px 30px -12px rgba(0,0,0,0.18);
+  }
+
+  .btn-primary:focus-visible {
+    box-shadow: 0 30px 80px -32px rgba(56,189,248,0.22), 0 0 0 6px hsl(var(--ring) / 0.18);
   }
 
   .btn-secondary {
     @apply bg-card/80 text-primary-foreground border border-primary/15 px-8 py-3 rounded-2xl font-semibold transition-all duration-200 shadow-[0_20px_60px_-45px_rgba(0,0,0,0.25)];
     backdrop-filter: blur(6px);
+    border-color: hsl(var(--primary) / 0.12);
+    color: hsl(var(--primary-foreground));
   }
   
   .card {
     @apply bg-card/95 text-card-foreground rounded-[32px] shadow-[0_30px_80px_-45px_rgba(0,0,0,0.35)] p-8 transition-shadow duration-300 border border-border/70;
+    border-color: hsl(var(--border) / 0.6);
   }
 
   .gradient-text {
