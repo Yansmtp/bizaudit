@@ -98,28 +98,27 @@ async function generateAudit(order: any) {
       "content_ideas": ["Idea 1", "Idea 2"]
     }
   `;
+const response = await openai.chat.completions.create({
+  model: 'gpt-4o-mini',
+  temperature: 0.7,
+  response_format: { type: 'json_object' },
+  messages: [
+    {
+      role: 'system',
+      content: 'Eres un consultor de marketing digital experto en negocios locales, especialmente restaurantes y comida latina en Miami.',
+    },
+    {
+      role: 'user',
+      content: prompt,
+    },
+  ],
+});
 
-  const response = await openai.chat.completions.create({
-    model: 'gpt-4o-mini',
-    temperature: 0.7,
-    response_format: { type: 'json_object' },
-    messages: [
-      {
-        role: 'system',
-        content: 'Eres un consultor de marketing digital experto en negocios locales, especialmente restaurantes y comida latina en Miami.',
-      },
-      {
-        role: 'user',
-        content: prompt,
-      },
-    ],
-  });
-
-  const content = response.choices[0].message.content;
-  if (!content) {
-    throw new Error('OpenAI returned an empty response.');
-  }
-  return JSON.parse(content);
+const content = response.choices[0].message.content;
+if (!content) {
+  throw new Error('OpenAI returned an empty response.');
+}
+return JSON.parse(content);
 }
 
 async function sendAuditEmail(to: string, businessName: string, pdfUrl: string) {

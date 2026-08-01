@@ -4,11 +4,13 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X, Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
+import { useLanguage } from '@/components/LanguageProvider';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { theme, setTheme } = useTheme();
+  const { lang, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,15 +21,15 @@ export default function Navbar() {
   }, []);
 
   const navItems = [
-    { name: 'Features', href: '#features' },
-    { name: 'How It Works', href: '#how-it-works' },
-    { name: 'Pricing', href: '#pricing' },
-    { name: 'Testimonials', href: '#testimonials' },
+    { name: t.nav.features, href: '#features' },
+    { name: t.nav.howItWorks, href: '#how-it-works' },
+    { name: t.nav.pricing, href: '#pricing' },
+    { name: t.nav.testimonials, href: '#testimonials' },
   ];
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${
-      scrolled ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm' : 'bg-transparent'
+      scrolled ? 'bg-background/95 dark:bg-card/95 backdrop-blur-xl border-b border-border/70 shadow-sm' : 'bg-transparent'
     }`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
@@ -43,19 +45,27 @@ export default function Navbar() {
               <a
                 key={item.name}
                 href={item.href}
-                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                className="text-foreground hover:text-primary transition-colors"
               >
                 {item.name}
               </a>
             ))}
             <button
               onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="p-2 rounded-xl hover:bg-primary/10 transition-colors"
             >
               {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
             </button>
-            <a href="#pricing" className="btn-primary">
-              Get Started
+            <select
+              value={lang}
+              onChange={(e) => setLanguage(e.target.value as 'en' | 'es')}
+              className="rounded-xl border border-border bg-card/80 px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+            >
+              <option value="en">EN</option>
+              <option value="es">ES</option>
+            </select>
+            <a href="#pricing" className="btn-primary shadow-xl">
+              {t.nav.getStarted}
             </a>
           </div>
 
@@ -63,13 +73,13 @@ export default function Navbar() {
           <div className="md:hidden flex items-center space-x-4">
             <button
               onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="p-2 rounded-xl hover:bg-primary/10 transition-colors"
             >
               {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
             </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="p-2 rounded-xl hover:bg-primary/10 transition-colors"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -81,21 +91,21 @@ export default function Navbar() {
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800"
+            className="md:hidden bg-card/95 border-t border-border"
           >
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navItems.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
-                  className="block px-3 py-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className="block px-3 py-2 rounded-md text-foreground hover:bg-secondary/10 transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}
                 </a>
               ))}
-              <a href="#pricing" className="block px-3 py-2 btn-primary text-center">
-                Get Started
+              <a href="#pricing" className="block px-3 py-2 rounded-2xl bg-primary text-primary-foreground text-center font-semibold hover:bg-primary/95 transition-colors">
+                {t.nav.getStarted}
               </a>
             </div>
           </motion.div>

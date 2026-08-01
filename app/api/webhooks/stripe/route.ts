@@ -3,6 +3,8 @@ import { getStripe } from '@/lib/stripe';
 import { prisma } from '@/lib/prisma';
 import { processAudit } from '@/lib/audit-processor';
 
+export const runtime = 'nodejs';
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.text();

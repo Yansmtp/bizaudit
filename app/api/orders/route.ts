@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getStripe } from '@/lib/stripe';
 
+export const runtime = 'nodejs';
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -22,7 +24,7 @@ export async function POST(req: NextRequest) {
 
     const prices = {
       basic: 1900,
-      professional: 9900,
+      professional: 30000,
     };
 
     const amount = prices[plan as keyof typeof prices];

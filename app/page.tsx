@@ -34,6 +34,7 @@ import {
   Zap,
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
+import { useLanguage } from '@/components/LanguageProvider';
 import { useTheme } from 'next-themes';
 
 export default function Home() {
@@ -42,6 +43,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const { theme } = useTheme();
+  const { setLanguage, t } = useLanguage();
 
   const [formData, setFormData] = useState({
     businessName: '',
@@ -126,67 +128,33 @@ export default function Home() {
     setStep('form');
   };
 
-  const plans = {
-    free: {
-      name: 'Free',
-      price: '$0',
-      description: 'Basic Score',
-      features: [
-        'AI-powered business analysis',
-        'Overall Score',
-      ],
-      cta: 'Get My Free Score',
-      popular: false,
-    },
-    basic: {
-      name: 'Starter',
-      price: '$19',
-      description: 'Business Audit',
-      features: [
-        'AI-powered business analysis',
-        'Comprehensive PDF report',
-        'Website & SEO evaluation',
-        'Social media audit',
-        '30-day action plan',
-        'Email delivery',
-      ],
-      cta: 'Get My Audit',
-      popular: true,
-    },
-    professional: {
-      name: 'Growth',
-      price: '$300',
-      description: 'Business Audit + 1-hour consultation',
-      features: [
-        'Everything in Starter',
-        '1-hour video consultation',
-        'Custom growth strategy',
-        'Competitor analysis',
-        'Priority support',
-        'Follow-up email support',
-      ],
-      cta: 'Schedule Consultation',
-      popular: false,
-    },
-  };
+  const plans = t.plans;
+  const planEntries = [
+    ['free', plans.free],
+    ['basic', plans.basic],
+    ['professional', plans.professional],
+  ] as const;
+  const faqs = t.faq.items;
 
-  const faqs = [
-    {
-      question: 'How does the AI work?',
-      answer: "Our AI analyzes your business's online presence across multiple platforms including your website, social media profiles, Google Business listing, and competitor data. It uses advanced machine learning to identify opportunities and generate actionable recommendations.",
-    },
-    {
-      question: 'How long does it take?',
-      answer: "The free preview audit takes about 2 minutes. For paid audits, you'll receive your comprehensive PDF report within 5 minutes of payment. Consultation sessions are scheduled within 24-48 hours.",
-    },
-    {
-      question: 'Can I audit any business?',
-      answer: 'Yes! Our platform works for any type of business including restaurants, retail, professional services, healthcare, and more. The AI adapts its analysis based on your industry and goals.',
-    },
-    {
-      question: 'Do I need technical knowledge?',
-      answer: 'Not at all. Our platform is designed to be user-friendly. Just provide your business information and we handle the technical analysis. The reports are written in plain language with clear, actionable steps.',
-    },
+  const trustStats = [
+    { value: t.trust.stats[0].value, label: t.trust.stats[0].label, icon: FileText },
+    { value: t.trust.stats[1].value, label: t.trust.stats[1].label, icon: Award },
+    { value: t.trust.stats[2].value, label: t.trust.stats[2].label, icon: TrendingUp },
+  ];
+
+  const howItWorksSteps = [
+    { ...t.howItWorks.steps[0], icon: Building2 },
+    { ...t.howItWorks.steps[1], icon: Brain },
+    { ...t.howItWorks.steps[2], icon: FileText },
+  ];
+
+  const featureItems = [
+    { icon: Globe, ...t.features.items[0] },
+    { icon: Search, ...t.features.items[1] },
+    { icon: MapPin, ...t.features.items[2] },
+    { icon: Share2, ...t.features.items[3] },
+    { icon: Users, ...t.features.items[4] },
+    { icon: Target, ...t.features.items[5] },
   ];
 
   return (
@@ -194,48 +162,47 @@ export default function Home() {
       <Navbar />
 
       {/* HERO SECTION */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-emerald-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"></div>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <section className="relative pt-32 pb-24 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(45,224,255,0.12),_transparent_40%),radial-gradient(circle_at_bottom_right,_rgba(255,95,170,0.2),_transparent_35%)]"></div>
+        <div className="relative overflow-hidden">
+          <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-primary/15 to-transparent blur-3xl"></div>
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
+              <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 text-primary px-4 py-2 mb-6 font-semibold text-sm">
+                {t.hero.pretitle}
+              </div>
               <h1 className="text-5xl sm:text-6xl font-bold text-foreground mb-6 leading-tight">
-                Discover Why Your Business Is{' '}
-                <span className="gradient-text">Losing Customers</span> Online
+                {t.hero.title}{' '}
+                <span className="gradient-text">{t.hero.emphasis}</span> online
               </h1>
-              <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-                Get an AI-powered business audit in minutes. Receive a detailed report with growth opportunities, marketing improvements, and an action plan.
+              <p className="text-xl text-muted-foreground mb-10 leading-relaxed max-w-2xl">
+                {t.hero.subtitle}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <button
                   onClick={() => setStep('form')}
                   className="btn-primary text-lg flex items-center justify-center gap-2"
                 >
-                  Get My Audit
+                  {t.hero.ctaPrimary}
                   <ArrowRight size={20} />
                 </button>
                 <button className="btn-secondary text-lg flex items-center justify-center gap-2">
                   <Play size={20} />
-                  See Sample Report
+                  {t.hero.ctaSecondary}
                 </button>
               </div>
-              <div className="flex gap-8 mt-12">
-                <div>
-                  <div className="text-3xl font-bold text-primary">+42%</div>
-                  <div className="text-sm text-muted-foreground">Visibility</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-emerald-600">+31%</div>
-                  <div className="text-sm text-muted-foreground">Leads</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-purple-600">AI</div>
-                  <div className="text-sm text-muted-foreground">Powered</div>
-                </div>
+              <div className="grid grid-cols-3 gap-4 mt-14">
+                {t.hero.metrics.map((metric, index) => (
+                  <div key={index} className="rounded-3xl bg-card/90 border border-primary/10 p-5 text-center shadow-lg shadow-primary/15">
+                    <div className="text-3xl font-bold text-primary">{metric.value}</div>
+                    <div className="text-sm font-medium text-muted-foreground">{metric.label}</div>
+                  </div>
+                ))}
               </div>
             </motion.div>
 
@@ -245,27 +212,30 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="relative"
             >
-              <div className="bg-card rounded-2xl shadow-2xl p-8 border border-border">
-                <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-2xl font-bold text-card-foreground">Business Audit</h3>
-                  <div className="bg-primary text-primary-foreground px-4 py-2 rounded-full text-sm font-semibold">
-                    Live Analysis
-                  </div>
+              <div className="bg-background/95 dark:bg-card/95 rounded-[32px] shadow-2xl p-8 border border-border/70 backdrop-blur-xl">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+              <div>
+                <p className="text-sm uppercase tracking-[0.24em] text-primary/85 font-semibold mb-2">{t.audit.live}</p>
+                <h3 className="text-2xl font-bold text-card-foreground">{t.audit.title}</h3>
+              </div>
+              <div className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-4 py-2 rounded-full text-sm font-semibold shadow-[0_10px_40px_-30px_rgba(255,95,170,0.8)]">
+                <span className="h-2.5 w-2.5 rounded-full bg-primary"></span>
+                {t.audit.quickTitle}
                 </div>
                 
                 <div className="space-y-4">
-                  <div className="bg-gradient-to-r from-blue-50 to-emerald-50 dark:from-gray-700 dark:to-gray-700 p-6 rounded-xl">
+                  <div className="bg-gradient-to-br from-primary/10 to-accent/10 p-6 rounded-[28px] border border-primary/10">
                     <div className="text-center">
-                      <div className="text-5xl font-bold gradient-text mb-2">82/100</div>
-                      <div className="text-muted-foreground">Overall Score</div>
+                      <div className="text-5xl font-bold gradient-text mb-2">{t.audit.score}</div>
+                      <div className="text-muted-foreground">{t.audit.scoreLabel}</div>
                     </div>
                   </div>
 
                   {[
-                    { name: 'Website Analysis', score: 85, color: 'bg-blue-500' },
-                    { name: 'SEO Score', score: 78, color: 'bg-emerald-500' },
-                    { name: 'Social Media', score: 72, color: 'bg-purple-500' },
-                    { name: 'Google Business', score: 88, color: 'bg-orange-500' },
+                    { name: t.audit.metrics[0].label, score: 85, color: 'bg-blue-500' },
+                    { name: t.audit.metrics[1].label, score: 78, color: 'bg-emerald-500' },
+                    { name: t.audit.metrics[2].label, score: 72, color: 'bg-purple-500' },
+                    { name: t.audit.metrics[3].label, score: 88, color: 'bg-orange-500' },
                   ].map((item, index) => (
                     <div key={index} className="space-y-2">
                       <div className="flex justify-between text-sm">
@@ -288,8 +258,8 @@ export default function Home() {
                   <div className="flex items-start gap-3">
                     <Lightbulb className="text-primary-foreground mt-1" size={20} />
                     <div>
-                      <div className="font-semibold text-primary-foreground text-sm">Quick Win</div>
-                      <div className="text-xs text-primary-foreground/80 mt-1">Add 5 more posts this week to increase engagement by 23%</div>
+                      <div className="font-semibold text-primary-foreground text-sm">{t.audit.quickTitle}</div>
+                      <div className="text-xs text-primary-foreground/80 mt-1">{t.audit.quickText}</div>
                     </div>
                   </div>
                 </div>
@@ -309,11 +279,11 @@ export default function Home() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl font-bold text-foreground mb-4">
-              Trusted by growing businesses
+              {t.trust.title}
             </h2>
-            <div className="flex flex-wrap justify-center gap-8 opacity-50">
-              {['Company 1', 'Company 2', 'Company 3', 'Company 4', 'Company 5'].map((company, index) => (
-                <div key={index} className="text-2xl font-bold text-muted-foreground">
+            <div className="flex flex-wrap justify-center gap-8 opacity-80 text-muted-foreground">
+              {t.trust.companies.map((company, index) => (
+                <div key={index} className="text-lg font-semibold">
                   {company}
                 </div>
               ))}
@@ -321,11 +291,7 @@ export default function Home() {
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { value: '10,000+', label: 'Audits Generated', icon: FileText },
-              { value: '94%', label: 'Customer Satisfaction', icon: Award },
-              { value: '$3.2M', label: 'Estimated Revenue Growth', icon: TrendingUp },
-            ].map((stat, index) => (
+            {trustStats.map((stat, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -353,34 +319,15 @@ export default function Home() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl font-bold text-foreground mb-4">
-              How It Works
+              {t.howItWorks.title}
             </h2>
             <p className="text-xl text-muted-foreground">
-              Three simple steps to transform your business
+              {t.howItWorks.subtitle}
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                step: '01',
-                title: 'Submit Your Business',
-                description: 'Fill out our simple form with your business details and online presence information.',
-                icon: Building2,
-              },
-              {
-                step: '02',
-                title: 'AI Analyzes Your Digital Presence',
-                description: 'Our advanced AI scans your website, social media, SEO, and competitors.',
-                icon: Brain,
-              },
-              {
-                step: '03',
-                title: 'Receive Your Personalized Report',
-                description: 'Get a comprehensive PDF report with actionable recommendations and growth strategies.',
-                icon: FileText,
-              },
-            ].map((item, index) => (
+            {howItWorksSteps.map((item, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -390,7 +337,7 @@ export default function Home() {
                 className="relative"
               >
                 <div className="card text-center h-full">
-                  <div className="text-6xl font-bold text-primary dark:text-gray-700 mb-4">
+                  <div className="text-6xl font-bold text-primary mb-4">
                     {item.step}
                   </div>
                   <item.icon className="w-16 h-16 mx-auto mb-4 text-primary" />
@@ -417,46 +364,15 @@ export default function Home() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl font-bold text-foreground mb-4">
-              Comprehensive Business Analysis
+              {t.features.title}
             </h2>
             <p className="text-xl text-muted-foreground">
-              Everything you need to grow your online presence
+              {t.features.subtitle}
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                icon: Globe,
-                title: 'Website Analysis',
-                description: 'Evaluate your website\'s design, speed, mobile-friendliness, and conversion optimization.',
-              },
-              {
-                icon: Search,
-                title: 'SEO Evaluation',
-                description: 'Analyze your search engine optimization and identify opportunities to rank higher.',
-              },
-              {
-                icon: MapPin,
-                title: 'Google Business Review',
-                description: 'Optimize your Google Business Profile to attract more local customers.',
-              },
-              {
-                icon: Share2,
-                title: 'Social Media Audit',
-                description: 'Review your social media presence across all major platforms.',
-              },
-              {
-                icon: Users,
-                title: 'Competitor Insights',
-                description: 'Understand what your competitors are doing right and how to outperform them.',
-              },
-              {
-                icon: Target,
-                title: '30-Day Growth Plan',
-                description: 'Receive a prioritized action plan with specific tasks to grow your business.',
-              },
-            ].map((feature, index) => (
+            {featureItems.map((feature, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -489,10 +405,10 @@ export default function Home() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl font-bold text-foreground mb-4">
-              See What You'll Get
+              {t.sampleReport.title}
             </h2>
             <p className="text-xl text-muted-foreground">
-              A comprehensive report with actionable insights
+              {t.sampleReport.subtitle}
             </p>
           </motion.div>
 
@@ -503,10 +419,10 @@ export default function Home() {
             className="bg-card rounded-2xl shadow-2xl p-8 border border-border max-w-4xl mx-auto"
           >
             <div className="flex items-center justify-between mb-8">
-              <h3 className="text-2xl font-bold text-card-foreground">Sample Report</h3>
+              <h3 className="text-2xl font-bold text-card-foreground">{t.sampleReport.title}</h3>
               <button className="btn-secondary flex items-center gap-2">
                 <Download size={18} />
-                Download PDF
+                {t.sampleReport.download}
               </button>
             </div>
 
@@ -514,7 +430,7 @@ export default function Home() {
               <div className="bg-gradient-to-br from-blue-50 to-emerald-50 dark:from-gray-700 dark:to-gray-700 p-6 rounded-xl">
                 <div className="text-center">
                   <div className="text-6xl font-bold gradient-text mb-2">82</div>
-                  <div className="text-muted-foreground">Overall Score</div>
+                  <div className="text-muted-foreground">{t.sampleReport.overallScore}</div>
                 </div>
               </div>
 
@@ -522,22 +438,24 @@ export default function Home() {
                 <div>
                   <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
                     <CheckCircle2 className="text-emerald-600" size={18} />
-                    Strengths
+                    {t.sampleReport.strengths}
                   </h4>
                   <ul className="text-sm text-muted-foreground space-y-1">
-                    <li>• Strong social media presence</li>
-                    <li>• Good customer reviews</li>
+                    {t.sampleReport.strengthList.map((item, index) => (
+                      <li key={index}>• {item}</li>
+                    ))}
                   </ul>
                 </div>
 
                 <div>
                   <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
                     <Zap className="text-orange-600" size={18} />
-                    Quick Wins
+                    {t.sampleReport.quickWins}
                   </h4>
                   <ul className="text-sm text-muted-foreground space-y-1">
-                    <li>• Add 5 more posts this week</li>
-                    <li>• Optimize Google Business description</li>
+                    {t.sampleReport.quickWinList.map((item, index) => (
+                      <li key={index}>• {item}</li>
+                    ))}
                   </ul>
                 </div>
               </div>
@@ -556,15 +474,15 @@ export default function Home() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl font-bold text-foreground mb-4">
-              Simple, Transparent Pricing
+              {t.pricing.title}
             </h2>
             <p className="text-xl text-muted-foreground">
-              Choose the plan that fits your needs
+              {t.pricing.subtitle}
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {Object.entries(plans).map(([key, plan], index) => (
+            {planEntries.map(([key, plan], index) => (
               <motion.div
                 key={key}
                 initial={{ opacity: 0, y: 20 }}
@@ -580,13 +498,13 @@ export default function Home() {
               >
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-emerald-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
-                    Most Popular
+                    {t.plans.popularBadge}
                   </div>
                 )}
                 <div className="text-center mb-6">
                   <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
                   <div className="text-5xl font-bold mb-2">{plan.price}</div>
-                  <p className={plan.popular ? 'text-blue-100' : 'text-muted-foreground'}>
+                  <p className={plan.popular ? 'text-primary-foreground/90' : 'text-muted-foreground'}>
                     {plan.description}
                   </p>
                 </div>
@@ -604,9 +522,9 @@ export default function Home() {
 
                 <button
                   onClick={() => selectPlan(key as 'free' | 'basic' | 'professional')}
-                  className={`w-full py-3 rounded-lg font-semibold transition-all ${
+                  className={`w-full py-4 rounded-3xl font-semibold transition-all ${
                     plan.popular
-                      ? 'bg-white text-primary hover:bg-gray-100'
+                      ? 'bg-primary text-primary-foreground hover:bg-primary/95 shadow-xl'
                       : 'btn-primary'
                   }`}
                 >
@@ -628,31 +546,12 @@ export default function Home() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl font-bold text-foreground mb-4">
-              What Our Clients Say
+              {t.testimonials.title}
             </h2>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                name: 'Maria Garcia',
-                company: 'La Cocina Restaurant',
-                text: 'The audit helped us identify key areas we were missing. Our online orders increased by 40% in just one month!',
-                rating: 5,
-              },
-              {
-                name: 'John Smith',
-                company: 'Smith & Co. Consulting',
-                text: 'Incredible insights. The AI found issues we never noticed. The consultation was worth every penny.',
-                rating: 5,
-              },
-              {
-                name: 'Ana Rodriguez',
-                company: 'Bella Beauty Salon',
-                text: 'Professional, detailed, and actionable. Our Google Business profile went from invisible to #1 in our area.',
-                rating: 5,
-              },
-            ].map((testimonial, index) => (
+            {t.testimonials.items.map((testimonial, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -667,7 +566,7 @@ export default function Home() {
                   ))}
                 </div>
                 <p className="text-muted-foreground mb-6 italic">
-                  "{testimonial.text}"
+                  &ldquo;{testimonial.text}&rdquo;
                 </p>
                 <div>
                   <div className="font-semibold text-foreground">
@@ -693,7 +592,7 @@ export default function Home() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl font-bold text-foreground mb-4">
-              Frequently Asked Questions
+              {t.faq.title}
             </h2>
           </motion.div>
 
@@ -705,7 +604,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-card rounded-xl shadow-md overflow-hidden"
+                className="bg-card/95 rounded-xl shadow-2xl overflow-hidden border border-border"
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === index ? null : index)}
@@ -736,16 +635,16 @@ export default function Home() {
             viewport={{ once: true }}
           >
             <h2 className="text-4xl sm:text-5xl font-bold text-primary-foreground mb-6">
-              Stop Guessing. Start Growing.
+              {t.cta.title}
             </h2>
             <p className="text-xl text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              Join thousands of businesses that have transformed their online presence with AI-powered insights.
+              {t.cta.subtitle}
             </p>
             <button
               onClick={() => setStep('form')}
-              className="bg-white text-primary px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors shadow-xl inline-flex items-center gap-2"
+              className="bg-primary text-primary-foreground px-8 py-4 rounded-lg font-semibold text-lg hover:bg-primary/95 transition-colors shadow-[0_18px_40px_-20px_rgba(45,224,255,0.55)] inline-flex items-center gap-2"
             >
-              Generate My Business Audit
+              {t.cta.button}
               <ArrowRight size={20} />
             </button>
           </motion.div>
@@ -753,41 +652,41 @@ export default function Home() {
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-foreground text-background py-12">
+      <footer className="bg-card text-card-foreground py-16 border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
-              <h3 className="text-2xl font-bold text-background mb-4 gradient-text">BizAudit AI</h3>
-              <p className="text-sm">
-                AI-powered business audits to help you grow your online presence and increase revenue.
+              <h3 className="text-2xl font-bold mb-4 gradient-text">BizAudit AI</h3>
+              <p className="text-sm text-muted-foreground">
+                {t.footer.description}
               </p>
             </div>
             <div>
-              <h4 className="font-semibold text-background mb-4">Product</h4>
+              <h4 className="font-semibold text-background mb-4">{t.footer.product}</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#features" className="hover:text-white transition-colors">Features</a></li>
-                <li><a href="#pricing" className="hover:text-white transition-colors">Pricing</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Sample Report</a></li>
+                <li><a href="#features" className="hover:text-white transition-colors">{t.footer.features}</a></li>
+                <li><a href="#pricing" className="hover:text-white transition-colors">{t.footer.pricing}</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">{t.footer.sampleReport}</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-background mb-4">Company</h4>
+              <h4 className="font-semibold text-background mb-4">{t.footer.company}</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition-colors">About</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">{t.footer.about}</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">{t.footer.contact}</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">{t.footer.careers}</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-background mb-4">Legal</h4>
+              <h4 className="font-semibold text-background mb-4">{t.footer.legal}</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">{t.footer.privacy}</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">{t.footer.terms}</a></li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-border mt-8 pt-8 text-center text-sm">
-            <p>&copy; {new Date().getFullYear()} BizAudit AI. All rights reserved.</p>
+          <div className="border-t border-border mt-8 pt-8 text-center text-sm text-muted-foreground">
+            <p>&copy; {new Date().getFullYear()} BizAudit AI. Todos los derechos reservados.</p>
           </div>
         </div>
       </footer>
@@ -798,15 +697,15 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-card rounded-2xl shadow-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+            className="bg-card/95 rounded-2xl shadow-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-border"
           >
             <div className="flex justify-between items-center mb-6">
               <div>
                 <h2 className="text-3xl font-bold text-card-foreground mb-2">
-                  {selectedPlan === 'professional' ? 'Schedule Your Consultation' : 'Get Your Business Audit'}
+                  {selectedPlan === 'professional' ? t.form.consultationTitle : t.form.auditTitle}
                 </h2>
                 <p className="text-muted-foreground">
-                  Plan: <span className="font-semibold">{plans[selectedPlan!]?.name} - {plans[selectedPlan!]?.price}</span>
+                  {t.form.planLabel} <span className="font-semibold">{plans[selectedPlan!]?.name} - {plans[selectedPlan!]?.price}</span>
                 </p>
               </div>
               <button
@@ -821,7 +720,7 @@ export default function Home() {
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-muted-foreground mb-1">
-                    Business Name *
+                    {t.form.labels.businessName}
                   </label>
                   <input
                     type="text"
@@ -830,13 +729,13 @@ export default function Home() {
                     value={formData.businessName}
                     onChange={handleInputChange}
                     className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent bg-background text-foreground"
-                    placeholder="Ej: Restaurant La Habana"
+                    placeholder={t.form.placeholders.businessName}
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-muted-foreground mb-1">
-                    Category *
+                    {t.form.labels.category}
                   </label>
                   <input
                     type="text"
@@ -845,13 +744,13 @@ export default function Home() {
                     value={formData.category}
                     onChange={handleInputChange}
                     className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent bg-background text-foreground"
-                    placeholder="Ej: Restaurant"
+                    placeholder={t.form.placeholders.category}
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-muted-foreground mb-1">
-                    City *
+                    {t.form.labels.city}
                   </label>
                   <input
                     type="text"
@@ -860,13 +759,13 @@ export default function Home() {
                     value={formData.city}
                     onChange={handleInputChange}
                     className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent bg-background text-foreground"
-                    placeholder="Ej: Miami"
+                    placeholder={t.form.placeholders.city}
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-muted-foreground mb-1">
-                    Email *
+                    {t.form.labels.email}
                   </label>
                   <input
                     type="email"
@@ -875,13 +774,13 @@ export default function Home() {
                     value={formData.email}
                     onChange={handleInputChange}
                     className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent bg-background text-foreground"
-                    placeholder="tu@email.com"
+                    placeholder={t.form.placeholders.email}
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-muted-foreground mb-1">
-                    Website
+                    {t.form.labels.website}
                   </label>
                   <input
                     type="url"
@@ -889,13 +788,13 @@ export default function Home() {
                     value={formData.website}
                     onChange={handleInputChange}
                     className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent bg-background text-foreground"
-                    placeholder="https://tusitio.com"
+                    placeholder={t.form.placeholders.website}
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-muted-foreground mb-1">
-                    Instagram
+                    {t.form.labels.instagram}
                   </label>
                   <input
                     type="text"
@@ -903,13 +802,13 @@ export default function Home() {
                     value={formData.instagram}
                     onChange={handleInputChange}
                     className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent bg-background text-foreground"
-                    placeholder="@tucuenta"
+                    placeholder={t.form.placeholders.instagram}
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-muted-foreground mb-1">
-                    Facebook
+                    {t.form.labels.facebook}
                   </label>
                   <input
                     type="text"
@@ -917,13 +816,13 @@ export default function Home() {
                     value={formData.facebook}
                     onChange={handleInputChange}
                     className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent bg-background text-foreground"
-                    placeholder="facebook.com/tupagina"
+                    placeholder={t.form.placeholders.facebook}
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-muted-foreground mb-1">
-                    Google Maps
+                    {t.form.labels.googleMaps}
                   </label>
                   <input
                     type="text"
@@ -931,13 +830,13 @@ export default function Home() {
                     value={formData.googleMaps}
                     onChange={handleInputChange}
                     className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent bg-background text-foreground"
-                    placeholder="URL de Google Maps"
+                    placeholder={t.form.placeholders.googleMaps}
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-muted-foreground mb-1">
-                    Phone
+                    {t.form.labels.phone}
                   </label>
                   <input
                     type="tel"
@@ -945,13 +844,13 @@ export default function Home() {
                     value={formData.phone}
                     onChange={handleInputChange}
                     className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent bg-background text-foreground"
-                    placeholder="+1 305 555 0123"
+                    placeholder={t.form.placeholders.phone}
                   />
                 </div>
 
                 <div className="md:col-span-2">
                   <label className="block text-sm font-medium text-muted-foreground mb-1">
-                    Main Goal *
+                    {t.form.labels.mainGoal}
                   </label>
                   <textarea
                     name="mainGoal"
@@ -960,7 +859,7 @@ export default function Home() {
                     onChange={handleInputChange}
                     rows={4}
                     className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent bg-background text-foreground"
-                    placeholder="¿Qué quieres lograr con esta auditoría? Ej: Quiero conseguir más clientes locales."
+                    placeholder={t.form.placeholders.mainGoal}
                   />
                 </div>
               </div>
@@ -971,7 +870,7 @@ export default function Home() {
                 className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {loading ? (
-                  'Processing...'
+                  t.form.loading
                 ) : (
                   <>
                     {selectedPlan === 'free' && <Zap size={20} />}
@@ -992,21 +891,21 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-card rounded-2xl shadow-2xl p-12 max-w-2xl w-full text-center"
+            className="bg-card/95 rounded-2xl shadow-2xl p-12 max-w-2xl w-full text-center border border-border"
           >
             <div className="text-6xl mb-6">🎉</div>
             <h2 className="text-3xl font-bold text-card-foreground mb-4">
-              {selectedPlan === 'professional' ? 'Consultation Scheduled!' : 'Thank You For Your Purchase!'}
+              {selectedPlan === 'professional' ? t.processing.consultation : t.processing.success}
             </h2>
             <p className="text-xl text-muted-foreground mb-6">
               {selectedPlan === 'professional' 
-                ? 'We\'ll send you a calendar invitation within 24 hours to schedule your 30-minute consultation with our team.'
-                : 'We\'re analyzing your business. You\'ll receive your report in your email in less than 5 minutes.'
+                ? t.processing.consultationText
+                : t.processing.successText
               }
             </p>
             <div className="bg-primary p-4 rounded-lg">
               <p className="text-sm text-primary-foreground">
-                ⚡ Check your email for confirmation and next steps.
+                {t.processing.emailNote}
               </p>
             </div>
           </motion.div>
