@@ -40,6 +40,40 @@
     --ring: 190 95% 68%;
   }
 
+  /* High contrast variant for accessibility */
+  .high-contrast {
+    --background: 0 0% 100%; /* white */
+    --foreground: 220 10% 6%; /* near-black */
+    --card: 0 0% 98%;
+    --card-foreground: 220 10% 6%;
+    --primary: 238 88% 36%; /* vivid Instagram blue/purple */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 325 70% 36%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 210 8% 94%;
+    --muted-foreground: 220 10% 28%;
+    --accent: 28 100% 36%;
+    --accent-foreground: 0 0% 100%;
+    --border: 220 10% 88%;
+    --ring: 238 88% 36%;
+  }
+
+  /* Honor user's contrast preference when supported */
+  @media (prefers-contrast: more) {
+    :root {
+      --background: 0 0% 100%;
+      --foreground: 220 10% 6%;
+      --card: 0 0% 98%;
+      --card-foreground: 220 10% 6%;
+      --primary: 238 88% 36%;
+      --primary-foreground: 0 0% 100%;
+      --secondary: 325 70% 36%;
+      --secondary-foreground: 0 0% 100%;
+      --accent: 28 100% 36%;
+      --accent-foreground: 0 0% 100%;
+    }
+  }
+
   body {
     @apply antialiased font-sans;
     background-color: hsl(var(--background));
