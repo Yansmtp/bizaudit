@@ -88,7 +88,10 @@ export default function Navbar() {
               aria-label="Toggle high contrast"
               title={highContrast ? 'High contrast: on' : 'High contrast: off'}
             >
-              <Contrast size={18} style={{ color: 'hsl(var(--secondary))' }} />
+              <Contrast
+                size={18}
+                style={{ color: highContrast ? 'hsl(var(--accent))' : 'hsl(var(--secondary))' }}
+              />
             </button>
             <select
               value={lang}
@@ -118,7 +121,10 @@ export default function Navbar() {
               aria-label="Toggle high contrast"
               title={highContrast ? 'High contrast: on' : 'High contrast: off'}
             >
-              <Contrast size={18} style={{ color: 'hsl(var(--secondary))' }} />
+              <Contrast
+                size={18}
+                style={{ color: highContrast ? 'hsl(var(--accent))' : 'hsl(var(--secondary))' }}
+              />
             </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
