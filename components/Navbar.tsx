@@ -11,6 +11,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const { theme, setTheme } = useTheme();
   const { lang, setLanguage, t } = useLanguage();
+  const [highContrast, setHighContrast] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,6 +20,29 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    // Initialize high contrast from localStorage
+    try {
+      const stored = localStorage.getItem('highContrast');
+      const val = stored === 'true';
+      setHighContrast(val);
+      document.documentElement.classList.toggle('high-contrast', val);
+    } catch (e) {
+      // ignore (SSR or blocked storage)
+    }
+  }, []);
+
+  const toggleHighContrast = () => {
+    try {
+      const next = !highContrast;
+      setHighContrast(next);
+      localStorage.setItem('highContrast', next ? 'true' : 'false');
+      document.documentElement.classList.toggle('high-contrast', next);
+    } catch (e) {
+      // ignore
+    }
+  };
 
   const navItems = [
     { name: t.nav.features, href: '#features' },
@@ -53,8 +77,18 @@ export default function Navbar() {
             <button
               onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
               className="p-2 rounded-xl hover:bg-primary/10 transition-colors"
+              aria-label="Toggle theme"
             >
               {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+            </button>
+            <button
+              onClick={toggleHighContrast}
+              className="p-2 rounded-xl hover:bg-primary/10 transition-colors"
+              aria-pressed={highContrast}
+              aria-label="Toggle high contrast"
+              title={highContrast ? 'High contrast: on' : 'High contrast: off'}
+            >
+              HC
             </button>
             <select
               value={lang}
@@ -76,6 +110,15 @@ export default function Navbar() {
               className="p-2 rounded-xl hover:bg-primary/10 transition-colors"
             >
               {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+            </button>
+            <button
+              onClick={toggleHighContrast}
+              className="p-2 rounded-xl hover:bg-primary/10 transition-colors"
+              aria-pressed={highContrast}
+              aria-label="Toggle high contrast"
+              title={highContrast ? 'High contrast: on' : 'High contrast: off'}
+            >
+              HC
             </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
