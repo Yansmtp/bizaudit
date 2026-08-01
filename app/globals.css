@@ -6,37 +6,37 @@
 
 @layer base {
   :root {
-    --background: 215 39% 11%;
-    --foreground: 210 20% 96%;
-    --card: 218 32% 14%;
-    --card-foreground: 210 20% 96%;
-    --primary: 190 100% 65%;
-    --primary-foreground: 213 17% 11%;
-    --secondary: 323 100% 71%;
-    --secondary-foreground: 210 20% 96%;
-    --muted: 214 18% 18%;
-    --muted-foreground: 210 18% 76%;
-    --accent: 195 100% 70%;
-    --accent-foreground: 210 20% 96%;
-    --border: 215 20% 20%;
-    --ring: 190 100% 72%;
+    --background: 212 18% 8%;
+    --foreground: 210 18% 96%;
+    --card: 218 22% 14%;
+    --card-foreground: 210 18% 96%;
+    --primary: 190 100% 66%;
+    --primary-foreground: 218 18% 10%;
+    --secondary: 18 100% 64%;
+    --secondary-foreground: 210 18% 96%;
+    --muted: 214 18% 20%;
+    --muted-foreground: 210 18% 72%;
+    --accent: 190 100% 72%;
+    --accent-foreground: 210 18% 96%;
+    --border: 214 18% 16%;
+    --ring: 190 95% 68%;
   }
 
   .dark {
-    --background: 215 38% 7%;
+    --background: 212 18% 5%;
     --foreground: 210 18% 98%;
-    --card: 218 24% 11%;
+    --card: 218 18% 12%;
     --card-foreground: 210 18% 98%;
     --primary: 190 100% 68%;
-    --primary-foreground: 218 23% 13%;
-    --secondary: 323 100% 72%;
+    --primary-foreground: 218 18% 10%;
+    --secondary: 18 100% 68%;
     --secondary-foreground: 210 18% 98%;
-    --muted: 214 18% 13%;
+    --muted: 214 18% 14%;
     --muted-foreground: 210 18% 74%;
-    --accent: 195 100% 72%;
+    --accent: 190 100% 74%;
     --accent-foreground: 210 18% 98%;
-    --border: 215 25% 14%;
-    --ring: 190 100% 72%;
+    --border: 214 18% 13%;
+    --ring: 190 95% 68%;
   }
 
   body {
@@ -48,15 +48,15 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-primary text-primary-foreground px-8 py-3 rounded-2xl font-semibold hover:bg-primary/95 transition-colors duration-200 shadow-[0_20px_60px_-40px_rgba(45,224,255,0.75)];
+    @apply bg-primary text-primary-foreground px-8 py-3 rounded-2xl font-semibold hover:bg-primary/90 transition-colors duration-200 shadow-[0_20px_60px_-40px_rgba(56,189,248,0.55)];
   }
 
   .btn-secondary {
-    @apply bg-white/10 text-primary-foreground border border-primary/20 px-8 py-3 rounded-2xl font-semibold hover:bg-white/15 transition-all duration-200 shadow-[0_20px_60px_-45px_rgba(255,255,255,0.18)];
+    @apply bg-card/80 text-primary-foreground border border-primary/15 px-8 py-3 rounded-2xl font-semibold hover:bg-card transition-all duration-200 shadow-[0_20px_60px_-45px_rgba(0,0,0,0.25)];
   }
 
   .card {
-    @apply bg-card/95 text-card-foreground rounded-[32px] shadow-[0_30px_80px_-45px_rgba(0,0,0,0.45)] p-8 transition-shadow duration-300 border border-border/70;
+    @apply bg-card/95 text-card-foreground rounded-[32px] shadow-[0_30px_80px_-45px_rgba(0,0,0,0.35)] p-8 transition-shadow duration-300 border border-border/70;
   }
 
   .gradient-text {

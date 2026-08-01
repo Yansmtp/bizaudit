@@ -167,7 +167,7 @@ export default function Home() {
         <div className="relative overflow-hidden">
           <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-primary/15 to-transparent blur-3xl"></div>
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -214,35 +214,36 @@ export default function Home() {
             >
               <div className="bg-background/95 dark:bg-card/95 rounded-[32px] shadow-2xl p-8 border border-border/70 backdrop-blur-xl">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-              <div>
-                <p className="text-sm uppercase tracking-[0.24em] text-primary/85 font-semibold mb-2">{t.audit.live}</p>
-                <h3 className="text-2xl font-bold text-card-foreground">{t.audit.title}</h3>
-              </div>
-              <div className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-4 py-2 rounded-full text-sm font-semibold shadow-[0_10px_40px_-30px_rgba(255,95,170,0.8)]">
-                <span className="h-2.5 w-2.5 rounded-full bg-primary"></span>
-                {t.audit.quickTitle}
+                  <div>
+                    <p className="text-sm uppercase tracking-[0.24em] text-primary/85 font-semibold mb-2">{t.audit.live}</p>
+                    <h3 className="text-2xl font-bold text-card-foreground">{t.audit.title}</h3>
+                  </div>
+                  <div className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-4 py-2 rounded-full text-sm font-semibold shadow-[0_10px_40px_-30px_rgba(59,130,246,0.35)]">
+                    <span className="h-2.5 w-2.5 rounded-full bg-primary"></span>
+                    {t.audit.quickTitle}
+                  </div>
                 </div>
-                
+
                 <div className="space-y-4">
-                  <div className="bg-gradient-to-br from-primary/10 to-accent/10 p-6 rounded-[28px] border border-primary/10">
+                  <div className="bg-card/90 p-6 rounded-[28px] border border-border/70">
                     <div className="text-center">
-                      <div className="text-5xl font-bold gradient-text mb-2">{t.audit.score}</div>
+                      <div className="text-5xl font-bold text-primary mb-2">{t.audit.score}</div>
                       <div className="text-muted-foreground">{t.audit.scoreLabel}</div>
                     </div>
                   </div>
 
                   {[
-                    { name: t.audit.metrics[0].label, score: 85, color: 'bg-blue-500' },
-                    { name: t.audit.metrics[1].label, score: 78, color: 'bg-emerald-500' },
-                    { name: t.audit.metrics[2].label, score: 72, color: 'bg-purple-500' },
-                    { name: t.audit.metrics[3].label, score: 88, color: 'bg-orange-500' },
+                    { name: t.audit.metrics[0].label, score: 85, color: 'bg-primary' },
+                    { name: t.audit.metrics[1].label, score: 78, color: 'bg-secondary' },
+                    { name: t.audit.metrics[2].label, score: 72, color: 'bg-accent' },
+                    { name: t.audit.metrics[3].label, score: 88, color: 'bg-primary/80' },
                   ].map((item, index) => (
                     <div key={index} className="space-y-2">
                       <div className="flex justify-between text-sm">
                         <span className="text-muted-foreground font-medium">{item.name}</span>
                         <span className="text-foreground font-semibold">{item.score}%</span>
                       </div>
-                      <div className="w-full bg-secondary rounded-full h-2">
+                      <div className="w-full bg-card/50 rounded-full h-2">
                         <motion.div
                           initial={{ width: 0 }}
                           animate={{ width: `${item.score}%` }}
@@ -267,6 +268,7 @@ export default function Home() {
             </motion.div>
           </div>
         </div>
+      </div>
       </section>
 
       {/* TRUST SECTION */}
@@ -427,9 +429,9 @@ export default function Home() {
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-gradient-to-br from-blue-50 to-emerald-50 dark:from-gray-700 dark:to-gray-700 p-6 rounded-xl">
+              <div className="bg-card/90 p-6 rounded-xl border border-border/70">
                 <div className="text-center">
-                  <div className="text-6xl font-bold gradient-text mb-2">82</div>
+                  <div className="text-6xl font-bold text-primary mb-2">82</div>
                   <div className="text-muted-foreground">{t.sampleReport.overallScore}</div>
                 </div>
               </div>
@@ -437,7 +439,7 @@ export default function Home() {
               <div className="space-y-4">
                 <div>
                   <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
-                    <CheckCircle2 className="text-emerald-600" size={18} />
+                    <CheckCircle2 className="text-primary" size={18} />
                     {t.sampleReport.strengths}
                   </h4>
                   <ul className="text-sm text-muted-foreground space-y-1">
@@ -449,7 +451,7 @@ export default function Home() {
 
                 <div>
                   <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
-                    <Zap className="text-orange-600" size={18} />
+                    <Zap className="text-secondary" size={18} />
                     {t.sampleReport.quickWins}
                   </h4>
                   <ul className="text-sm text-muted-foreground space-y-1">
@@ -492,12 +494,12 @@ export default function Home() {
                 whileHover={{ y: -5 }}
                 className={`relative rounded-2xl shadow-xl p-8 ${
                   plan.popular
-                    ? 'bg-gradient-to-br from-primary to-accent text-primary-foreground scale-105'
+                    ? 'bg-gradient-to-br from-primary to-secondary text-primary-foreground scale-105'
                     : 'bg-card'
                 }`}
               >
                 {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-emerald-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-semibold shadow-lg shadow-primary/20">
                     {t.plans.popularBadge}
                   </div>
                 )}
@@ -512,8 +514,8 @@ export default function Home() {
                 <ul className="space-y-3 mb-8">
                   {plan.features.map((feature, i) => (
                     <li key={i} className="flex items-start gap-2">
-                      <CheckCircle2 className={`mt-0.5 ${plan.popular ? 'text-blue-200' : 'text-emerald-600'}`} size={18} />
-                      <span className={plan.popular ? 'text-blue-50' : 'text-card-foreground'}>
+                      <CheckCircle2 className={`mt-0.5 ${plan.popular ? 'text-primary-foreground' : 'text-secondary-foreground'}`} size={18} />
+                      <span className={plan.popular ? 'text-primary-foreground' : 'text-card-foreground'}>
                         {feature}
                       </span>
                     </li>
@@ -562,7 +564,7 @@ export default function Home() {
               >
                 <div className="flex gap-1 mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="text-yellow-400 fill-yellow-400" size={18} />
+                    <Star key={i} className="text-secondary-foreground fill-secondary-foreground" size={18} />
                   ))}
                 </div>
                 <p className="text-muted-foreground mb-6 italic">
