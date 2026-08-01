@@ -10,13 +10,14 @@
     --foreground: 210 18% 96%;
     --card: 218 22% 14%;
     --card-foreground: 210 18% 96%;
-    --primary: 190 100% 66%;
+    /* Instagram-like palette (web gradient endpoints) */
+    --primary: 238 88% 58%; /* blue/purple (#405DE6 / #5851DB area) */
     --primary-foreground: 218 18% 10%;
-    --secondary: 18 100% 64%;
+    --secondary: 325 70% 54%; /* magenta/pink (#833AB4 area) */
     --secondary-foreground: 210 18% 96%;
     --muted: 214 18% 20%;
     --muted-foreground: 210 18% 72%;
-    --accent: 190 100% 72%;
+    --accent: 28 100% 58%; /* orange/yellow (#FCAF45 area) */
     --accent-foreground: 210 18% 96%;
     --border: 214 18% 16%;
     --ring: 190 95% 68%;
@@ -27,13 +28,13 @@
     --foreground: 210 18% 98%;
     --card: 218 18% 12%;
     --card-foreground: 210 18% 98%;
-    --primary: 190 100% 68%;
+    --primary: 238 88% 60%;
     --primary-foreground: 218 18% 10%;
-    --secondary: 18 100% 68%;
+    --secondary: 325 70% 56%;
     --secondary-foreground: 210 18% 98%;
     --muted: 214 18% 14%;
     --muted-foreground: 210 18% 74%;
-    --accent: 190 100% 74%;
+    --accent: 28 100% 60%;
     --accent-foreground: 210 18% 98%;
     --border: 214 18% 13%;
     --ring: 190 95% 68%;
@@ -60,7 +61,10 @@
   }
 
   .gradient-text {
-    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+    background-image: linear-gradient(90deg, #405DE6 0%, #833AB4 50%, #FCAF45 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
   h1, h2, h3, h4, h5, h6 {
